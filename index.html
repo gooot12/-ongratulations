@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Гангстерская свадьба - Поздравление</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Playfair+Display:wght@400;700&display=swap');
+        
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #0a0a0a;
+            color: #d4af37;
+            font-family: 'Playfair Display', serif;
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23d4af37' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            text-align: center;
+            padding: 40px 0;
+            border-bottom: 2px solid #d4af37;
+        }
+        
+        h1 {
+            font-family: 'Cinzel', serif;
+            font-size: 3rem;
+            margin: 0;
+            letter-spacing: 3px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        
+        h2 {
+            font-family: 'Cinzel', serif;
+            font-size: 1.8rem;
+            margin: 10px 0;
+            letter-spacing: 2px;
+        }
+        
+        .subtitle {
+            font-style: italic;
+            margin-top: 10px;
+            font-size: 1.2rem;
+        }
+        
+        .greeting {
+            padding: 40px 20px;
+            text-align: center;
+            font-size: 1.2rem;
+            line-height: 1.6;
+        }
+        
+        .signature {
+            font-family: 'Cinzel', serif;
+            font-size: 1.5rem;
+            text-align: right;
+            margin-top: 30px;
+            font-style: italic;
+        }
+        
+        .signature-title {
+            font-size: 1.1rem;
+            color: #a38829;
+            display: block;
+            margin-top: 5px;
+        }
+        
+        .photo-gallery {
+            margin: 40px 0;
+            background-color: rgba(10, 10, 10, 0.7);
+            padding: 20px;
+            border: 1px solid #d4af37;
+        }
+        
+        .gallery-title {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        .slideshow-container {
+            position: relative;
+            max-width: 800px;
+            margin: auto;
+        }
+        
+        .mySlides {
+            display: none;
+            text-align: center;
+        }
+        
+        .photo-container {
+            height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #111;
+            border: 1px solid #333;
+        }
+        
+        .photo-container img {
+            max-height: 100%;
+            max-width: 100%;
+        }
+        
+        .prev, .next {
+            cursor: pointer;
+            position: absolute;
+            top: 50%;
+            width: auto;
+            margin-top: -22px;
+            padding: 16px;
+            color: #d4af37;
+            font-weight: bold;
+            font-size: 18px;
+            transition: 0.6s ease;
+            border-radius: 0 3px 3px 0;
+            user-select: none;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+        
+        .next {
+            right: 0;
+            border-radius: 3px 0 0 3px;
+        }
+        
+        .prev:hover, .next:hover {
+            background-color: rgba(212, 175, 55, 0.3);
+        }
+        
+        .caption {
+            color: #f2f2f2;
+            font-size: 15px;
+            padding: 8px 0;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+            text-align: center;
+        }
+        
+        .numbertext {
+            color: #f2f2f2;
+            font-size: 12px;
+            padding: 8px 12px;
+            position: absolute;
+            top: 0;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px 0;
+            border-top: 2px solid #d4af37;
+            margin-top: 40px;
+            font-size: 0.9rem;
+        }
+        
+        .music-control {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background-color: rgba(10, 10, 10, 0.7);
+            border: 1px solid #d4af37;
+            padding: 10px;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            z-index: 100;
+        }
+        
+        .music-control button {
+            background-color: #d4af37;
+            color: #0a0a0a;
+            border: none;
+            padding: 5px 10px;
+            margin-right: 10px;
+            cursor: pointer;
+            font-weight: bold;
+            font-family: 'Cinzel', serif;
+        }
+        
+        .music-control button:hover {
+            background-color: #a38829;
+        }
+        
+        .music-control span {
+            font-size: 0.9rem;
+        }
+        
+        @media screen and (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            h2 {
+                font-size: 1.4rem;
+            }
+            
+            .greeting {
+                font-size: 1rem;
+                padding: 20px 10px;
+            }
+            
+            .photo-container {
+                height: 300px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>СЕМЬЯ ДОН МОЛОДЫХ</h1>
+            <div class="subtitle">С этого дня все беды в прошлом - начинается новая эра</div>
+        </header>
+        
+        <div class="greeting">
+            <h2>Дорогие молодожёны!</h2>
+            <p>В этот исторический день, когда два великих клана объединяются, мы рады приветствовать вас в новой жизни, полной власти, роскоши и верности семье.</p>
+            <p>Как говорил Дон Корлеоне: <em>"Мужчина, который не проводит время со своей семьей, никогда не может быть настоящим мужчиной"</em>. Ваш союз - это не просто свадьба, это создание новой могущественной империи, основанной на священных клятвах.</p>
+            <p>Пусть ваша любовь будет крепче бронежилета, а верность - надёжнее телохранителя. Да будет ваш дом крепостью, а каждый день - днем триумфа.</p>
+            <p>Помните, что семья - это самое главное. И теперь вы - одна семья, одна команда, один синдикат.</p>
+            <div class="signature">С уважением, Святой Серж
+                <span class="signature-title">Закон улиц, живущий вне законов. Тот, кого не обсуждают — о нём шепчутся. Перед кем склоняются не по принуждению, а по убеждению.</span>
+            </div>
+        </div>
+        
+        <div class="photo-gallery">
+            <div class="gallery-title">
+                <h2>ФОТОГРАФИИ С ПОСЛЕДНЕЙ СВОБОДНОЙ НОЧИ ЖЕНИХА</h2>
+                <p>Доказательства того, что мальчишник прошёл на высшем уровне</p>
+            </div>
+            
+            <div class="slideshow-container">
+                <div class="mySlides">
+                    <div class="numbertext">1 / 5</div>
+                    <div class="photo-container">
+                        <img src="/api/placeholder/800/500" alt="Мальчишник фото 1">
+                    </div>
+                    <div class="caption">Начало вечера. Ещё все были трезвые и серьёзные.</div>
+                </div>
+                
+                <div class="mySlides">
+                    <div class="numbertext">2 / 5</div>
+                    <div class="photo-container">
+                        <img src="/api/placeholder/800/500" alt="Мальчишник фото 2">
+                    </div>
+                    <div class="caption">В казино - удача была на нашей стороне.</div>
+                </div>
+                
+                <div class="mySlides">
+                    <div class="numbertext">3 / 5</div>
+                    <div class="photo-container">
+                        <img src="/api/placeholder/800/500" alt="Мальчишник фото 3">
+                    </div>
+                    <div class="caption">Ресторан "У Луиджи" - лучшие спагетти в городе.</div>
+                </div>
+                
+                <div class="mySlides">
+                    <div class="numbertext">4 / 5</div>
+                    <div class="photo-container">
+                        <img src="/api/placeholder/800/500" alt="Мальчишник фото 4">
+                    </div>
+                    <div class="caption">Клуб "Омерта" - то, что происходило здесь, останется между нами.</div>
+                </div>
+                
+                <div class="mySlides">
+                    <div class="numbertext">5 / 5</div>
+                    <div class="photo-container">
+                        <img src="/api/placeholder/800/500" alt="Мальчишник фото 5">
+                    </div>
+                    <div class="caption">Рассвет. Клятва верности семье.</div>
+                </div>
+                
+                <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+                <a class="next" onclick="plusSlides(1)">&#10095;</a>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>"Семья не ограничивается кровью. Это люди в вашей жизни, которые хотят вас в своей жизни; те, кто принимает вас таким, какой вы есть."</p>
+            <p>© 2025 Гангстерская Свадьба | Все права защищены семьёй</p>
+        </div>
+    </div>
+    
+    <!-- Аудио-элемент для воспроизведения музыки -->
+    <audio id="backgroundMusic" loop>
+        <!-- Замените на путь к вашему MP3-файлу -->
+        <source src="путь_к_вашей_музыке.mp3" type="audio/mpeg">
+        Ваш браузер не поддерживает аудио-элемент.
+    </audio>
+    
+    <!-- Кнопки управления музыкой -->
+    <div class="music-control">
+        <button id="playPauseBtn">⏸️ Пауза</button>
+        <span>Музыкальное сопровождение</span>
+    </div>
+    
+    <script>
+        // Скрипт для слайд-шоу
+        let slideIndex = 1;
+        showSlides(slideIndex);
+        
+        function plusSlides(n) {
+            showSlides(slideIndex += n);
+        }
+        
+        function currentSlide(n) {
+            showSlides(slideIndex = n);
+        }
+        
+        function showSlides(n) {
+            let i;
+            let slides = document.getElementsByClassName("mySlides");
+            if (n > slides.length) {slideIndex = 1}    
+            if (n < 1) {slideIndex = slides.length}
+            for (i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";  
+            }
+            slides[slideIndex-1].style.display = "block";  
+        }
+        
+        // Скрипт для воспроизведения музыки
+        document.addEventListener('DOMContentLoaded', function() {
+            const music = document.getElementById('backgroundMusic');
+            const playPauseBtn = document.getElementById('playPauseBtn');
+            let isPlaying = false;
+            
+            // Автовоспроизведение музыки при загрузке страницы
+            // Примечание: современные браузеры блокируют автовоспроизведение со звуком,
+            // поэтому может потребоваться взаимодействие пользователя
+            try {
+                music.play().then(() => {
+                    isPlaying = true;
+                    playPauseBtn.textContent = '⏸️ Пауза';
+                }).catch(error => {
+                    console.log('Автовоспроизведение заблокировано браузером.');
+                    isPlaying = false;
+                    playPauseBtn.textContent = '▶️ Играть';
+                });
+            } catch(e) {
+                console.log('Автовоспроизведение не поддерживается.');
+            }
+            
+            // Функция переключения воспроизведения/паузы
+            playPauseBtn.addEventListener('click', function() {
+                if (isPlaying) {
+                    music.pause();
+                    playPauseBtn.textContent = '▶️ Играть';
+                } else {
+                    music.play();
+                    playPauseBtn.textContent = '⏸️ Пауза';
+                }
+                isPlaying = !isPlaying;
+            });
+        });
+    </script>
+</body>
+</html>
