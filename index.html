@@ -101,11 +101,30 @@
             justify-content: center;
             background-color: #111;
             border: 1px solid #333;
+            cursor: pointer;
+            position: relative;
         }
         
         .photo-container img {
             max-height: 100%;
             max-width: 100%;
+            transition: transform 0.3s ease;
+        }
+        
+        .photo-container:hover img {
+            transform: scale(1.02);
+        }
+        
+        .photo-container:hover::after {
+            content: "Нажмите для увеличения";
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            background-color: rgba(0, 0, 0, 0.7);
+            color: #d4af37;
+            padding: 5px 10px;
+            border-radius: 3px;
+            font-size: 0.8rem;
         }
         
         .prev, .next {
@@ -191,6 +210,58 @@
             font-size: 0.9rem;
         }
         
+        /* Стили для модального окна */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            padding-top: 50px;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.9);
+        }
+        
+        .modal-content {
+            margin: auto;
+            display: block;
+            max-width: 90%;
+            max-height: 80%;
+        }
+        
+        .modal-text {
+            margin: 20px auto;
+            display: block;
+            width: 80%;
+            text-align: center;
+            color: #d4af37;
+            padding: 10px;
+            background-color: rgba(0, 0, 0, 0.7);
+            border: 1px solid #333;
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+        
+        .close {
+            position: absolute;
+            top: 15px;
+            right: 35px;
+            color: #d4af37;
+            font-size: 40px;
+            font-weight: bold;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+        
+        .close:hover,
+        .close:focus {
+            color: #bbb;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        
         @media screen and (max-width: 768px) {
             h1 {
                 font-size: 2rem;
@@ -207,6 +278,14 @@
             
             .photo-container {
                 height: 300px;
+            }
+            
+            .modal-content {
+                max-width: 100%;
+            }
+            
+            .modal-text {
+                width: 95%;
             }
         }
     </style>
@@ -225,7 +304,7 @@
             <p>Пусть ваша любовь будет крепче бронежилета, а верность - надёжнее телохранителя. Да будет ваш дом крепостью, а каждый день - днем триумфа.</p>
             <p>Помните, что семья - это самое главное. И теперь вы - одна семья, одна команда, один синдикат.</p>
             <div class="signature">С уважением, Святой Серж
-                <span class="signature-title">Закон улиц, живущий вне законов. Тот, кого не обсуждают — о нём шепчутся. Перед кем склоняются не по принуждению, а по убеждению.</span>
+               <span class="signature-title">Закон улиц, живущий вне законов. Тот, кого не обсуждают — о нём шепчутся. Перед кем склоняются не по принуждению, а по убеждению.</span>
             </div>
         </div>
         
@@ -238,44 +317,181 @@
             <div class="slideshow-container">
                 <div class="mySlides">
                     <div class="numbertext">1 / 5</div>
-                    <div class="photo-container">
-                        <img src="/api/placeholder/800/500" alt="Мальчишник фото 1">
+                    <div class="photo-container" onclick="openModal();currentModalSlide(1)">
+                        <img src="1.jpg" alt="Мальчишник фото 1">
                     </div>
-                    <div class="caption">Начало вечера. Ещё все были трезвые и серьёзные.</div>
+                    <div class="caption">Фотограф был чуть трезв, модель — под вопросом. Фото получилось как получилось. Кто виноват?</div>
                 </div>
                 
                 <div class="mySlides">
                     <div class="numbertext">2 / 5</div>
-                    <div class="photo-container">
-                        <img src="/api/placeholder/800/500" alt="Мальчишник фото 2">
+                    <div class="photo-container" onclick="openModal();currentModalSlide(2)">
+                        <img src="2.jpg" alt="Мальчишник фото 2">
                     </div>
-                    <div class="caption">В казино - удача была на нашей стороне.</div>
+                    <div class="caption">И тут началося. Волк дал сигнал, музыка взяла тон. Остальное — легенда.</div>
                 </div>
                 
                 <div class="mySlides">
                     <div class="numbertext">3 / 5</div>
-                    <div class="photo-container">
-                        <img src="/api/placeholder/800/500" alt="Мальчишник фото 3">
+                    <div class="photo-container" onclick="openModal();currentModalSlide(3)">
+                        <img src="3.jpg" alt="Мальчишник фото 3">
                     </div>
-                    <div class="caption">Ресторан "У Луиджи" - лучшие спагетти в городе.</div>
+                    <div class="caption">Волк завыл, заяц подтянулся – вечер обрёл свой ритм.</div>
                 </div>
                 
                 <div class="mySlides">
                     <div class="numbertext">4 / 5</div>
-                    <div class="photo-container">
-                        <img src="/api/placeholder/800/500" alt="Мальчишник фото 4">
+                    <div class="photo-container" onclick="openModal();currentModalSlide(4)">
+                        <img src="4.jpg" alt="Мальчишник фото 4">
                     </div>
-                    <div class="caption">Клуб "Омерта" - то, что происходило здесь, останется между нами.</div>
+                    <div class="caption">Волк дал старт, заяц подтвердил – вечер был обречён на успех.</div>
                 </div>
                 
                 <div class="mySlides">
                     <div class="numbertext">5 / 5</div>
-                    <div class="photo-container">
-                        <img src="/api/placeholder/800/500" alt="Мальчишник фото 5">
+                    <div class="photo-container" onclick="openModal();currentModalSlide(5)">
+                        <img src="5.jpg" alt="Мальчишник фото 5">
                     </div>
-                    <div class="caption">Рассвет. Клятва верности семье.</div>
+                    <div class="caption">Волк завёлся, заяц подхватил – и вот уже вечер диктует свои правила.</div>
                 </div>
                 
+               <div class="mySlides">
+                    <div class="numbertext">5 / 5</div>
+                    <div class="photo-container" onclick="openModal();currentModalSlide(5)">
+                        <img src="6.jpg" alt="Мальчишник фото">
+                    </div>
+                    <div class="caption">Опа. Срочно меняем маршрут. Причина? Думаю, вы уже догадались.</div>
+                </div>
+
+
+               <div class="mySlides">
+                    <div class="numbertext">5 / 5</div>
+                    <div class="photo-container" onclick="openModal();currentModalSlide(5)">
+                        <img src="7.jpg" alt="Мальчишник фото">
+                    </div>
+                    <div class="caption">Вечер, музыка, танец – всё как надо.</div>
+                </div>
+
+               <div class="mySlides">
+                    <div class="numbertext">5 / 5</div>
+                    <div class="photo-container" onclick="openModal();currentModalSlide(5)">
+                        <img src="8.jpg" alt="Мальчишник фото">
+                    </div>
+                    <div class="caption">Танцевал, кайфовал…</div>
+                </div>
+
+               <div class="mySlides">
+                    <div class="numbertext">5 / 5</div>
+                    <div class="photo-container" onclick="openModal();currentModalSlide(5)">
+                        <img src="9.jpg" alt="Мальчишник фото">
+                    </div>
+                    <div class="caption">Танцуют двое, охраняет один. Волку не пройти.</div>
+                </div>
+
+               <div class="mySlides">
+                    <div class="numbertext">5 / 5</div>
+                    <div class="photo-container" onclick="openModal();currentModalSlide(5)">
+                        <img src="10.jpg" alt="Мальчишник фото">
+                    </div>
+                    <div class="caption">Говорят, главное – не паниковать. Но когда на тебя несётся заяц с палкой, думаешь иначе.</div>
+                </div>
+                
+               <div class="mySlides">
+                    <div class="numbertext">5 / 5</div>
+                    <div class="photo-container" onclick="openModal();currentModalSlide(5)">
+                        <img src="11.jpg" alt="Мальчишник фото">
+                    </div>
+                    <div class="caption">Вечеринка на полную катушку, и я скидываю всё</div>
+                </div>
+               
+                <div class="mySlides">
+                    <div class="numbertext">5 / 5</div>
+                    <div class="photo-container" onclick="openModal();currentModalSlide(5)">
+                        <img src="12.jpg" alt="Мальчишник фото">
+                    </div>
+                    <div class="caption">Вечер накаляется… Кто-то с оружием подкатил.</div>
+                </div>
+              
+                <div class="mySlides">
+                    <div class="numbertext">5 / 5</div>
+                    <div class="photo-container" onclick="openModal();currentModalSlide(5)">
+                        <img src="13.jpg" alt="Мальчишник фото">
+                    </div>
+                    <div class="caption">Сначала один, теперь два...</div>
+                </div>
+               
+                <div class="mySlides">
+                    <div class="numbertext">5 / 5</div>
+                    <div class="photo-container" onclick="openModal();currentModalSlide(5)">
+                        <img src="14.jpg" alt="Мальчишник фото">
+                    </div>
+                    <div class="caption">За спиной у неё, готов к любой ситуации. Все спокойно.</div>
+                </div>
+                
+                <div class="mySlides">
+                    <div class="numbertext">5 / 5</div>
+                    <div class="photo-container" onclick="openModal();currentModalSlide(5)">
+                        <img src="15.jpg" alt="Мальчишник фото">
+                    </div>
+                    <div class="caption">Все отлично, продолжаем в том же духе</div>
+                </div>
+
+                <div class="mySlides">
+                    <div class="numbertext">5 / 5</div>
+                    <div class="photo-container" onclick="openModal();currentModalSlide(5)">
+                        <img src="16.jpg" alt="Мальчишник фото">
+                    </div>
+                    <div class="caption">Своё в наушниках, но ритм ночи не остановить.</div>
+                </div>
+
+                <div class="mySlides">
+                    <div class="numbertext">5 / 5</div>
+                    <div class="photo-container" onclick="openModal();currentModalSlide(5)">
+                        <img src="17.jpg" alt="Мальчишник фото">
+                    </div>
+                    <div class="caption">Танцы без перерыва — эта вечеринка не знает тормозов!</div>
+                </div>
+
+                <div class="mySlides">
+                    <div class="numbertext">5 / 5</div>
+                    <div class="photo-container" onclick="openModal();currentModalSlide(5)">
+                        <img src="18.jpg" alt="Мальчишник фото">
+                    </div>
+                    <div class="caption">Два кадра, два шага — мы в танце, а клуб в огне!</div>
+                </div>
+
+                <div class="mySlides">
+                    <div class="numbertext">5 / 5</div>
+                    <div class="photo-container" onclick="openModal();currentModalSlide(5)">
+                        <img src="19.jpg" alt="Мальчишник фото">
+                    </div>
+                    <div class="caption">Что-то пошло не так... Кто-то наступил на ногу?</div>
+                </div>
+
+                <div class="mySlides">
+                    <div class="numbertext">5 / 5</div>
+                    <div class="photo-container" onclick="openModal();currentModalSlide(5)">
+                        <img src="20.jpg" alt="Мальчишник фото">
+                    </div>
+                    <div class="caption">Когда думаешь, что всё под контролем, а тут заяц с палкой.</div>
+                </div>
+
+                <div class="mySlides">
+                    <div class="numbertext">5 / 5</div>
+                    <div class="photo-container" onclick="openModal();currentModalSlide(5)">
+                        <img src="21.jpg" alt="Мальчишник фото">
+                    </div>
+                    <div class="caption">Заяц, держись! Но кто-то уже его обнял.</div>
+                </div>
+
+                <div class="mySlides">
+                    <div class="numbertext">5 / 5</div>
+                    <div class="photo-container" onclick="openModal();currentModalSlide(5)">
+                        <img src="22.jpg" alt="Мальчишник фото">
+                    </div>
+                    <div class="caption">И да, чуть не забыли про диджея. Познакомьтесь, вот он!</div>
+                </div>
+
                 <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
                 <a class="next" onclick="plusSlides(1)">&#10095;</a>
             </div>
@@ -284,6 +500,43 @@
         <div class="footer">
             <p>"Семья не ограничивается кровью. Это люди в вашей жизни, которые хотят вас в своей жизни; те, кто принимает вас таким, какой вы есть."</p>
             <p>© 2025 Гангстерская Свадьба | Все права защищены семьёй</p>
+        </div>
+    </div>
+    
+    <!-- Модальное окно для увеличенных фотографий -->
+    <div id="photoModal" class="modal">
+        <span class="close" onclick="closeModal()">&times;</span>
+        
+        <img class="modal-content" id="modalImg">
+        
+        <div id="modalText1" class="modal-text">
+            <h3>Начало вечера</h3>
+            <p>Собрались в особняке на окраине города - все одеты с иголочки, при себе только необходимое. Охрана была выставлена по всему периметру. Жених получил от отца семейную реликвию - золотые запонки, которые носил ещё его дед. Взгляды серьёзные, но впереди долгая ночь.</p>
+            <p>Тост был поднят за новое начало и за то, чтобы жених запомнил свою последнюю ночь холостяка. И да, запомнил он её очень хорошо...</p>
+        </div>
+        
+        <div id="modalText2" class="modal-text">
+            <h3>Казино "Парадизо"</h3>
+            <p>Нас встретили как королей - лучший зал был закрыт специально для нас. Жених сорвал банк три раза подряд, а крупье даже не решилась возразить. Шампанское лилось рекой, везде были только свои люди.</p>
+            <p>Директор казино, старый друг семьи, лично принёс нам фирменные сигары и напомнил жениху о старых добрых временах, когда они вместе начинали свой путь наверх. Хотелось бы нам рассказать, как закончился вечер в казино, но некоторые секреты должны оставаться секретами...</p>
+        </div>
+        
+        <div id="modalText3" class="modal-text">
+            <h3>Ресторан "У Луиджи"</h3>
+            <p>Настоящее итальянское место, где чтят традиции. Старик Луиджи, приехавший в город ещё в 80-х, лично готовил для нас свои знаменитые спагетти с морепродуктами. Он вышел к нам в зал, чтобы благословить жениха и напомнить о том, как важно хранить верность не только будущей жене, но и своим корням.</p>
+            <p>Здесь мы встретили некоторых уважаемых людей города, которые присоединились к нашему празднику и подарили жениху фамильный кольт времён Сухого закона - конечно же, просто как сувенир. Личный бармен создавал для нас коктейли, которых нет в меню, а певицы исполняли песни нашей молодости.</p>
+        </div>
+        
+        <div id="modalText4" class="modal-text">
+            <h3>Клуб "Омерта"</h3>
+            <p>Самое эксклюзивное место в городе, куда просто так не попасть. Золотые карты и личное знакомство с владельцем открывают любые двери. Именно здесь началась настоящая вечеринка. О некоторых подробностях лучше не рассказывать публично...</p>
+            <p>Скажем только, что весь персонал клуба до сих пор вспоминает эту ночь с улыбкой, а некоторые девушки даже получили предложения о постоянном контракте. Трюк с шампанским и сейфом вошёл в легенды, а управляющему пришлось полностью обновить VIP-комнату после нашего визита. И нет, мы не будем комментировать фото, которое случайно исчезло с телефона жениха на следующее утро.</p>
+        </div>
+        
+        <div id="modalText5" class="modal-text">
+            <h3>Рассвет. Клятва верности.</h3>
+            <p>Встретили восход солнца на крыше небоскрёба в центре города - с видом на весь наш район. Здесь, подняв последний бокал, мы дали жениху наши клятвы верности и поддержки. В этот момент все шутки закончились, и настало время серьёзного разговора.</p>
+            <p>Мы напомнили ему, что семья - это не только жена, но и все мы, его братья, готовые встать плечом к плечу в любой момент. Жених поклялся никогда не забывать своих корней и всегда помнить, кто его настоящие друзья. А затем мы сожгли записку с именами всех, кто когда-либо перешёл нам дорогу - символ того, что прошлое остаётся в прошлом, и начинается новая жизнь.</p>
         </div>
     </div>
     
@@ -324,6 +577,35 @@
             slides[slideIndex-1].style.display = "block";  
         }
         
+        // Скрипт для модального окна
+        function openModal() {
+            document.getElementById("photoModal").style.display = "block";
+        }
+        
+        function closeModal() {
+            document.getElementById("photoModal").style.display = "none";
+        }
+        
+        function currentModalSlide(n) {
+            showModalContent(n);
+        }
+        
+        function showModalContent(n) {
+            // Получаем ссылку на текущую отображаемую картинку в слайдшоу
+            const currentImgSrc = document.getElementsByClassName("mySlides")[slideIndex-1].querySelector("img").src;
+            
+            // Устанавливаем эту же картинку в модальное окно
+            document.getElementById("modalImg").src = currentImgSrc;
+            
+            // Скрываем все модальные тексты
+            for (let i = 1; i <= 5; i++) {
+                document.getElementById("modalText" + i).style.display = "none";
+            }
+            
+            // Показываем только нужный текст
+            document.getElementById("modalText" + n).style.display = "block";
+        }
+        
         // Скрипт для воспроизведения музыки
         document.addEventListener('DOMContentLoaded', function() {
             const music = document.getElementById('backgroundMusic');
@@ -331,8 +613,6 @@
             let isPlaying = false;
             
             // Автовоспроизведение музыки при загрузке страницы
-            // Примечание: современные браузеры блокируют автовоспроизведение со звуком,
-            // поэтому может потребоваться взаимодействие пользователя
             try {
                 music.play().then(() => {
                     isPlaying = true;
@@ -358,6 +638,14 @@
                 isPlaying = !isPlaying;
             });
         });
+        
+        // Закрытие модального окна при клике вне картинки
+        window.onclick = function(event) {
+            const modal = document.getElementById('photoModal');
+            if (event.target == modal) {
+                closeModal();
+            }
+        }
     </script>
 </body>
 </html>
